@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 function App() {
     const [searchText, setSearchText] = useState("");
     const [playerDataLol, setPlayerDataLol] = useState({});
+    const [playerTop3, setPlayertop3] = useState({});
     const API_KEY = "RGAPI-3931cc47-b39e-4e48-8963-2b50feae4609";
 
     function searchForPlayerbyName(event) {
@@ -21,16 +22,14 @@ function App() {
         });
     }
 
-    const [playerTop3, setPlayertop3] = useState({});
+    function searchTop3Champs(event) {
+        var APICallChamp = "https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/" + playerDataLol.id + "/top?count=3&api_key=" + API_KEY;
 
-    function search3TopChampions(event) {
-     var APICallString = "https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/" + playerDataLol.id + "/top?count=3&apikey=" + API_KEY;
-
-     axios.get(APICallString).then(function (response) {
-         setPlayertop3(response.data);
-     }).catch(function (error) {
-         console.log(error);
-     });
+        axios.get(APICallChamp).then(function (response) {
+            setPlayertop3(response.data);
+        }).catch(function (error) {
+            console.log(error);
+        });
     }
 
     return (
@@ -54,20 +53,19 @@ function App() {
                 }
             </div>
             <div>
-                <input type="hidden" onChange={e => setPlayertop3(e.target.value)}/>
-                <button onClick={e => search3TopChampions(e)}>Voir les champions les plus joués</button>
+                <button onClick={e => searchTop3Champs(e)}>Top 3 champions</button>
             </div>
             <div>
                 {JSON.stringify(playerTop3) != '{}' ?
                     <>
-                        <p>{playerDataLol.id}</p>
-                        <p> {playerTop3[0].championId} </p>
+                        <p>{playerTop3[0].championId}</p>
+                        <p>{playerTop3[1].championId}</p>
+                        <p>{playerTop3[2].championId}</p>
                     </>
                     :
-                    <> <p>No info yet</p> </>
+                    <> <p>Pas encore de joueur sélectionné</p> </>
                 }
             </div>
-            <p>t</p>
         </div>
     );
 }
