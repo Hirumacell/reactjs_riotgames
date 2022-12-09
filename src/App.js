@@ -67,6 +67,7 @@ function App() {
                     <> <p>No info yet</p> </>
                 }
             </div>
+            <p>t</p>
         </div>
     );
 }
