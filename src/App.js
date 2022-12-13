@@ -1,14 +1,13 @@
 import React, {useState} from "react";
-import axios, {Axios} from "axios";
-import logo from './logo.svg';
+import axios from "axios";
 import './App.css';
-import Button from 'react-bootstrap/Button';
 
 function App() {
     const [searchText, setSearchText] = useState("");
     const [playerDataLol, setPlayerDataLol] = useState({});
     const [playerTop3, setPlayertop3] = useState({});
-    const API_KEY = "RGAPI-3931cc47-b39e-4e48-8963-2b50feae4609";
+    const [Champ, setChamp] = useState({});
+    const API_KEY = "RGAPI-9ec1493a-4d91-424b-81fc-701b5bc292e8";
 
     function searchForPlayerbyName(event) {
         // Serveur de l'API
@@ -22,14 +21,51 @@ function App() {
         });
     }
 
-    function searchTop3Champs(event) {
-        var APICallChamp = "https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/" + playerDataLol.id + "/top?count=3&api_key=" + API_KEY;
+    const [champion1, setChampion1] = useState("");
+    const [champion2, setChampion2] = useState("");
+    const [champion3, setChampion3] = useState("");
 
-        axios.get(APICallChamp).then(function (response) {
-            setPlayertop3(response.data);
-        }).catch(function (error) {
-            console.log(error);
-        });
+    function SearchTop3Champs(event) {
+        function Search3() {
+            var APICallChamp = "https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/" + playerDataLol.id + "/top?count=3&api_key=" + API_KEY;
+
+            axios.get(APICallChamp).then(function (response1) {
+                setPlayertop3(response1.data);
+            }).catch(function (error1) {
+                console.log(error1);
+            });
+        }
+
+        function SearchChamps() {
+            var ChampsURL = "https://raw.githubusercontent.com/ngryman/lol-champions/master/champions.json";
+
+            axios.get(ChampsURL).then(function (response2) {
+                setChamp(response2.data);
+            }).catch(function (error2) {
+                console.log(error2);
+            });
+        }
+
+        Search3();
+        SearchChamps();
+
+        console.log(Champ);
+        console.log(playerTop3);
+
+        for (let i = 0; i < 153; i++) {
+            if (parseInt(Champ[i].key) == parseInt(playerTop3[0].championId)) {
+                setChampion1(Champ[i].name);
+                console.log(Champ[i].name);
+            }
+            if (parseInt(Champ[i].key) == parseInt(playerTop3[1].championId)) {
+                setChampion2(Champ[i].name);
+                console.log(Champ[i].name);
+            }
+            if (parseInt(Champ[i].key) == parseInt(playerTop3[2].championId)) {
+                setChampion3(Champ[i].name);
+                console.log(Champ[i].name);
+            }
+        }
     }
 
     return (
@@ -53,14 +89,20 @@ function App() {
                 }
             </div>
             <div>
-                <button onClick={e => searchTop3Champs(e)}>Top 3 champions</button>
+                <button onClick={e => SearchTop3Champs(e)}>Top 3 champions</button>
             </div>
             <div>
                 {JSON.stringify(playerTop3) != '{}' ?
                     <>
-                        <p>{playerTop3[0].championId}</p>
-                        <p>{playerTop3[1].championId}</p>
-                        <p>{playerTop3[2].championId}</p>
+                        <p>Top 1 : {champion1} avec {playerTop3[0].championPoints} points</p>
+                        <img width="100" height="100"
+                             src={"http://ddragon.leagueoflegends.com/cdn/12.23.1/img/champion/" + champion1 + ".png"}/>
+                        <p>Top 2 : {champion2} avec {playerTop3[1].championPoints} points</p>
+                        <img width="100" height="100"
+                             src={"http://ddragon.leagueoflegends.com/cdn/12.23.1/img/champion/" + champion2 + ".png"}/>
+                        <p>Top 3 : {champion3} avec {playerTop3[2].championPoints} points</p>
+                        <img width="100" height="100"
+                             src={"http://ddragon.leagueoflegends.com/cdn/12.23.1/img/champion/" + champion3 + ".png"}/>
                     </>
                     :
                     <> <p>Pas encore de joueur sélectionné</p> </>
