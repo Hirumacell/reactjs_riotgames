@@ -9,7 +9,7 @@ function App() {
     const [playerDataLol, setPlayerDataLol] = useState();
     const [playerTop3, setPlayertop3] = useState([]);
 
-    const API_KEY = process.env.REACT_APP_TOKEN;
+    const API_KEY = "RGAPI-e0cdcca7-5108-4701-8e5c-3af8b763c44e";
 
     useEffect(() => {
         const ChampsURL = "https://raw.githubusercontent.com/ngryman/lol-champions/master/champions.json";
@@ -60,8 +60,7 @@ function App() {
                     <>
                         <p> {playerDataLol.name} </p>
                         <p> Niveau : {playerDataLol.summonerLevel} </p>
-                        <img width="100" height="100"
-                             src={"http://ddragon.leagueoflegends.com/cdn/12.23.1/img/profileicon/" + playerDataLol.profileIconId + ".png"}/>
+                        <img width="100" height="100" src={"http://ddragon.leagueoflegends.com/cdn/12.23.1/img/profileicon/" + playerDataLol.profileIconId + ".png"} alt={""}/>
                     </>
                     :
                     <> <p> Y'a pas de joueur avec ce nom </p> </>
@@ -72,7 +71,7 @@ function App() {
                         const champion = champions.find(champ => parseInt(champ.key) === playerTop.championId);
                         return <div className="carde" key={playerTop.championId}>
                             <p className="name"><b>{champion.name}</b></p>
-                            <img width="150" height="150" src={champion.icon}/>
+                            <img width="150" height="150" src={champion.icon} alt={""}/>
                             <p className="point">{playerTop.championPoints} points</p>
                         </div>}
                     )}
