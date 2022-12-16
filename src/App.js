@@ -30,7 +30,7 @@ function App() {
                 console.log(error)
             });
         }
-    }, [summonerName]);
+    }, [summonerName, searchText]);
 
     useEffect(() => {
         if (playerDataLol) {
