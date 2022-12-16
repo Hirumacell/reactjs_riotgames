@@ -60,8 +60,7 @@ function App() {
                     <>
                         <p> {playerDataLol.name} </p>
                         <p> Niveau : {playerDataLol.summonerLevel} </p>
-                        <img width="100" height="100"
-                             src={"http://ddragon.leagueoflegends.com/cdn/12.23.1/img/profileicon/" + playerDataLol.profileIconId + ".png"}/>
+                        <img width="100" height="100" src={"http://ddragon.leagueoflegends.com/cdn/12.23.1/img/profileicon/" + playerDataLol.profileIconId + ".png"} alt={""}/>
                     </>
                     :
                     <> <p> Y'a pas de joueur avec ce nom </p> </>
@@ -72,7 +71,7 @@ function App() {
                         const champion = champions.find(champ => parseInt(champ.key) === playerTop.championId);
                         return <li key={playerTop.championId}>
                             <p>{champion.name} avec {playerTop.championPoints} points</p>
-                            <img width="100" height="100" src={champion.icon}/>
+                            <img width="100" height="100" src={champion.icon} alt={""}/>
                         </li>}
                     )}
                 </ul>
