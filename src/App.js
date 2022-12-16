@@ -54,13 +54,13 @@ function App() {
 
         for (let i = 0; i < 153; i++) {
             if (parseInt(Champ[i].key) == parseInt(playerTop3[0].championId)) {
-                setChampion1(Champ[i].name);
+                setChampion1(Champ[i].id);
             }
             if (parseInt(Champ[i].key) == parseInt(playerTop3[1].championId)) {
-                setChampion2(Champ[i].name);
+                setChampion2(Champ[i].id);
             }
             if (parseInt(Champ[i].key) == parseInt(playerTop3[2].championId)) {
-                setChampion3(Champ[i].name);
+                setChampion3(Champ[i].id);
             }
         }
     }
@@ -86,15 +86,15 @@ function App() {
                 }
                 {JSON.stringify(playerTop3) != '{}' ?
                     <>
-                        <p>Top 1 : {champion1} avec {playerTop3[0].championPoints} points</p>
+                        <p>Top 1 : {champion1.charAt(0).toUpperCase() + champion1.slice(1)} avec {playerTop3[0].championPoints} points</p>
                         <img width="100" height="100"
-                             src={"http://ddragon.leagueoflegends.com/cdn/12.23.1/img/champion/" + champion1 + ".png"}/>
-                        <p>Top 2 : {champion2} avec {playerTop3[1].championPoints} points</p>
+                             src={"http://ddragon.leagueoflegends.com/cdn/12.23.1/img/champion/" + champion1.charAt(0).toUpperCase() + champion1.slice(1) + ".png"}/>
+                        <p>Top 2 : {champion2.charAt(0).toUpperCase() + champion2.slice(1)} avec {playerTop3[1].championPoints} points</p>
                         <img width="100" height="100"
-                             src={"http://ddragon.leagueoflegends.com/cdn/12.23.1/img/champion/" + champion2 + ".png"}/>
-                        <p>Top 3 : {champion3} avec {playerTop3[2].championPoints} points</p>
+                             src={"http://ddragon.leagueoflegends.com/cdn/12.23.1/img/champion/" + champion2.charAt(0).toUpperCase() + champion2.slice(1) + ".png"}/>
+                        <p>Top 3 : {champion3.charAt(0).toUpperCase() + champion3.slice(1)} avec {playerTop3[2].championPoints} points</p>
                         <img width="100" height="100"
-                             src={"http://ddragon.leagueoflegends.com/cdn/12.23.1/img/champion/" + champion3 + ".png"}/>
+                             src={"http://ddragon.leagueoflegends.com/cdn/12.23.1/img/champion/" + champion3.charAt(0).toUpperCase() + champion3.slice(1) + ".png"}/>
                     </>
                     :
                     <> <p>Pas encore de joueur sélectionné</p> </>
