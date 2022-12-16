@@ -9,7 +9,8 @@ function App() {
     const [playerDataLol, setPlayerDataLol] = useState();
     const [playerTop3, setPlayertop3] = useState([]);
 
-    const API_KEY = "RGAPI-e0cdcca7-5108-4701-8e5c-3af8b763c44e";
+    //const API_KEY = "RGAPI-e0cdcca7-5108-4701-8e5c-3af8b763c44e";
+    const API_KEY = process.env.REACT_APP_API_KEY;
 
     useEffect(() => {
         const ChampsURL = "https://raw.githubusercontent.com/ngryman/lol-champions/master/champions.json";
