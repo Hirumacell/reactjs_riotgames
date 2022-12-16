@@ -31,7 +31,7 @@ function App() {
                 console.log(error)
             });
         }
-    }, [summonerName, searchText]);
+    }, [summonerName, searchText, API_KEY]);
 
     useEffect(() => {
         if (playerDataLol) {
@@ -43,7 +43,7 @@ function App() {
                 console.log(error);
             });
         }
-    }, [playerDataLol]);
+    }, [playerDataLol, API_KEY]);
 
     function handleSubmit() {
         setSummonerName(searchText);
