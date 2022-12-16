@@ -9,7 +9,7 @@ function App() {
     const [playerDataLol, setPlayerDataLol] = useState();
     const [playerTop3, setPlayertop3] = useState([]);
 
-    const API_KEY = "RGAPI-e932c593-6ac5-44f8-a6b4-a5cac969de69";
+    const API_KEY = process.env.REACT_APP_TOKEN;
 
     useEffect(() => {
         const ChampsURL = "https://raw.githubusercontent.com/ngryman/lol-champions/master/champions.json";
@@ -60,21 +60,23 @@ function App() {
                     <>
                         <p> {playerDataLol.name} </p>
                         <p> Niveau : {playerDataLol.summonerLevel} </p>
-                        <img width="100" height="100" src={"http://ddragon.leagueoflegends.com/cdn/12.23.1/img/profileicon/" + playerDataLol.profileIconId + ".png"} alt={""}/>
+                        <img width="100" height="100"
+                             src={"http://ddragon.leagueoflegends.com/cdn/12.23.1/img/profileicon/" + playerDataLol.profileIconId + ".png"}/>
                     </>
                     :
                     <> <p> Y'a pas de joueur avec ce nom </p> </>
                 }
                 <h2>Top 3 champions</h2>
-                <ul>
+                <div className="card-wrapper">
                     {playerTop3.map((playerTop) => {
                         const champion = champions.find(champ => parseInt(champ.key) === playerTop.championId);
-                        return <li key={playerTop.championId}>
-                            <p>{champion.name} avec {playerTop.championPoints} points</p>
-                            <img width="100" height="100" src={champion.icon} alt={""}/>
-                        </li>}
+                        return <div className="carde" key={playerTop.championId}>
+                            <p className="name"><b>{champion.name}</b></p>
+                            <img width="150" height="150" src={champion.icon}/>
+                            <p className="point">{playerTop.championPoints} points</p>
+                        </div>}
                     )}
-                </ul>
+                </div>
             </div>
         </div>
     );
