@@ -7,7 +7,12 @@ function App() {
     const [playerDataLol, setPlayerDataLol] = useState({});
     const [playerTop3, setPlayertop3] = useState({});
     const [Champ, setChamp] = useState({});
-    const API_KEY = "RGAPI-9ec1493a-4d91-424b-81fc-701b5bc292e8";
+
+    const [champion1, setChampion1] = useState("");
+    const [champion2, setChampion2] = useState("");
+    const [champion3, setChampion3] = useState("");
+
+    const API_KEY = "RGAPI-e932c593-6ac5-44f8-a6b4-a5cac969de69";
 
     function searchForPlayerbyName(event) {
         // Serveur de l'API
@@ -19,13 +24,8 @@ function App() {
         }).catch(function (error) {
             console.log(error)
         });
-    }
 
-    const [champion1, setChampion1] = useState("");
-    const [champion2, setChampion2] = useState("");
-    const [champion3, setChampion3] = useState("");
 
-    function SearchTop3Champs(event) {
         function Search3() {
             var APICallChamp = "https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/" + playerDataLol.id + "/top?count=3&api_key=" + API_KEY;
 
@@ -55,15 +55,12 @@ function App() {
         for (let i = 0; i < 153; i++) {
             if (parseInt(Champ[i].key) == parseInt(playerTop3[0].championId)) {
                 setChampion1(Champ[i].name);
-                console.log(Champ[i].name);
             }
             if (parseInt(Champ[i].key) == parseInt(playerTop3[1].championId)) {
                 setChampion2(Champ[i].name);
-                console.log(Champ[i].name);
             }
             if (parseInt(Champ[i].key) == parseInt(playerTop3[2].championId)) {
                 setChampion3(Champ[i].name);
-                console.log(Champ[i].name);
             }
         }
     }
@@ -87,11 +84,6 @@ function App() {
                     :
                     <> <p> Y'a pas de joueur avec ce nom </p> </>
                 }
-            </div>
-            <div>
-                <button onClick={e => SearchTop3Champs(e)}>Top 3 champions</button>
-            </div>
-            <div>
                 {JSON.stringify(playerTop3) != '{}' ?
                     <>
                         <p>Top 1 : {champion1} avec {playerTop3[0].championPoints} points</p>
